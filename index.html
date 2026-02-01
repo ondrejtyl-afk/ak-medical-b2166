@@ -2008,7 +2008,7 @@
             });
         });
         
-        // Netlify Identity redirect after login
+        // Netlify Identity - handle invite/login
         if (window.netlifyIdentity) {
             window.netlifyIdentity.on("init", user => {
                 if (!user) {
@@ -2017,6 +2017,13 @@
                     });
                 }
             });
+            
+            // Handle invite token - show signup modal
+            if (window.location.hash.includes('invite_token') || 
+                window.location.hash.includes('confirmation_token') ||
+                window.location.hash.includes('recovery_token')) {
+                window.netlifyIdentity.open();
+            }
         }
     </script>
 </body>
