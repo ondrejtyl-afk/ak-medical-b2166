@@ -2010,20 +2010,13 @@
         
         // Netlify Identity - handle invite/login
         if (window.netlifyIdentity) {
-            window.netlifyIdentity.on("init", user => {
-                if (!user) {
-                    window.netlifyIdentity.on("login", () => {
-                        document.location.href = "/admin/";
-                    });
-                }
+            window.netlifyIdentity.init({
+                container: document.body
             });
             
-            // Handle invite token - show signup modal
-            if (window.location.hash.includes('invite_token') || 
-                window.location.hash.includes('confirmation_token') ||
-                window.location.hash.includes('recovery_token')) {
-                window.netlifyIdentity.open();
-            }
+            window.netlifyIdentity.on("login", () => {
+                document.location.href = "/admin/";
+            });
         }
     </script>
 </body>
